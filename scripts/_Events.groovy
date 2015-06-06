@@ -19,6 +19,7 @@ codeCoverageExclusionList = [
         "**/PreInit*",
         "*GrailsPlugin*"]
 
+ignoreTrivial = false
 
 eventCreateWarStart = { warName, stagingDir ->
     ant.delete(includeemptydirs: true) {
@@ -50,6 +51,10 @@ eventTestPhasesStart = {
             codeCoverageExclusionList += buildConfig.coverage.exclusions
         }
 
+        if (buildConfig.coverage.ignoreTrivial) {
+            ignoreTrivial = buildConfig.coverage.ignoreTrivial
+        }
+        
         defineCoberturaPathAndTasks()
         instrumentClasses()
     }
@@ -320,6 +325,7 @@ class AntInstrumentationBuildfileBuilder {
         Map<String, String> instrumentArguments = [:]
 
         instrumentArguments['datafile'] = "${dataFile}"
+        instrumentArguments['ignoreTrivial'] = "${ignoreTrivial}"
 
         if (forkedJVMDebugPort > 0) {
             instrumentArguments['forkedJVMDebugPort'] = "${forkedJVMDebugPort}"
