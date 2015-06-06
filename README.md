@@ -117,6 +117,13 @@ or from the command line, the following will create combined results for the uni
     grails test-app :unit -coverage -xml
     grails test-app :integration -coverage -xml -append
 
+You can also add set the [ignore trivial methods](https://github.com/cobertura/cobertura/wiki/Ant-Task-Reference#ignore-trivial) option as of NEW_VERSION_NUM by setting ignoreTrivial option to true
+
+    coverage {
+      ignoreTrivial = true
+    }
+    
+You can also use the net.sourceforge.cobertura.CoverageIgnore annotation as of NEW_VERSION_NUM to ignore certain methods or classes
 
 ## Contributors
 
